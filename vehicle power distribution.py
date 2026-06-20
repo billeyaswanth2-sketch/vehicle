@@ -4,7 +4,7 @@ Step 3: Python script to:
   II.  Open test cases in VS Code
   III. Run testcases in VS Code (new terminal)
 
-Target path: C:\\vpds_testcases.cpp
+Target path: C:\\vpds_testcases.py
 Adjust FOLDER_PATH / TEST_FILE / BUILD_DIR below to match your actual project layout.
 """
 
