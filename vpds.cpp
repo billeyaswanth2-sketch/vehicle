@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 using namespace std;
 
 int main() {
@@ -8,25 +8,22 @@ int main() {
     cout << "Eng    : Yaswanth"                                       << endl;
     cout << "=======================================================" << endl;
 
-    // brake test
-    cout << "[TC] brake_test" << endl;
     int brake = 1;
+    cout << "[TC] brake_test" << endl;
     if (brake == 1)
         cout << "  [PASS] brake is working fine" << endl;
     else
         cout << "  [FAIL] brake is not working" << endl;
 
-    // gear test
-    cout << "[TC] gear_test" << endl;
     int gear = 0;
+    cout << "[TC] gear_test" << endl;
     if (gear == 0)
         cout << "  [PASS] gear is in Park / Neutral" << endl;
     else
         cout << "  [FAIL] gear test failed" << endl;
 
-    // ignition test
-    cout << "[TC] ignition_test" << endl;
     int key = 0;
+    cout << "[TC] ignition_test" << endl;
     if (key == 0)
         cout << "  [PASS] key is in lock mode" << endl;
     else
