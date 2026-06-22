@@ -4,6 +4,8 @@ import pyautogui
 import os
 import sys
 
+pyautogui.FAILSAFE = False
+
 FOLDER    = r"C:\vpds_testcases.py"
 VSCODE    = r"C:\Users\B Yaswanth kumar\Downloads\Microsoft VS Code\Code.exe"
 TEST_FILE = r"C:\vpds_testcases.py\testcases.py"
