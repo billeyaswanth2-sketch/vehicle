@@ -1,40 +1,51 @@
-#include <iostream>
-using namespace std;
+﻿import subprocess
+import time
+import pyautogui
+import os
+import sys
 
-int main() {
+FOLDER    = r"C:\vpds_testcases.py"
+VSCODE    = r"C:\Users\B Yaswanth kumar\Downloads\Microsoft VS Code\Code.exe"
+TEST_FILE = r"C:\vpds_testcases.py\testcases.py"
+PYTHON    = sys.executable
 
-    cout << "=======================================================" << endl;
-    cout << "Module : vehicle power distribution (C++)"              << endl;
-    cout << "Eng    : Yaswanth"                                       << endl;
-    cout << "=======================================================" << endl;
+if not os.path.isfile(VSCODE):
+    print(f"VS Code not found:\n  {VSCODE}")
+    sys.exit()
 
-    // brake test
-    cout << "[TC] brake_test" << endl;
-    int brake = 1;
-    if (brake == 1)
-        cout << "  [PASS] brake is working fine" << endl;
-    else
-        cout << "  [FAIL] brake is not working" << endl;
+if not os.path.isdir(FOLDER):
+    print(f"Folder not found:\n  {FOLDER}")
+    sys.exit()
 
-    // gear test
-    cout << "[TC] gear_test" << endl;
-    int gear = 0;
-    if (gear == 0)
-        cout << "  [PASS] gear is in Park / Neutral" << endl;
-    else
-        cout << "  [FAIL] gear test failed" << endl;
+if not os.path.isfile(TEST_FILE):
+    print(f"Test file not found:\n  {TEST_FILE}")
+    sys.exit()
 
-    // ignition test
-    cout << "[TC] ignition_test" << endl;
-    int key = 0;
-    if (key == 0)
-        cout << "  [PASS] key is in lock mode" << endl;
-    else
-        cout << "  [FAIL] ignition test failed" << endl;
+print("[Step 1] Opening folder...")
+subprocess.Popen(["explorer", FOLDER])
+time.sleep(2)
 
-    cout << "=======================================================" << endl;
-    cout << "Done!" << endl;
-    cout << "=======================================================" << endl;
+print("[Step 2] Opening VS Code...")
+subprocess.Popen([VSCODE, FOLDER, TEST_FILE])
+time.sleep(10)
 
-    return 0;
-}
+print("[Step 3] Focusing VS Code window...")
+pyautogui.click(700, 400)
+time.sleep(2)
+
+print("[Step 4] Opening VS Code terminal...")
+pyautogui.hotkey('ctrl', '')
+time.sleep(3)
+
+print("[Step 5] Running g++ compile...")
+g_cmd = r'cmd /c "cd /d C:\vpds_testcases.py && g++ vpds.cpp -o vpds_output.exe && vpds_output.exe"'
+pyautogui.write(g_cmd, interval=0.03)
+pyautogui.press('enter')
+time.sleep(5)
+
+print("[Step 6] Running Python tests...")
+py_cmd = f'python "{TEST_FILE}"'
+pyautogui.write(py_cmd, interval=0.03)
+pyautogui.press('enter')
+
+print("Done! Watch the VS Code terminal for test results.")
