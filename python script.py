@@ -45,8 +45,8 @@ time.sleep(15)
 pyautogui.click(700, 400)
 time.sleep(2)
 
-# Open integrated terminal
-pyautogui.hotkey('ctrl', '`')
+# Open NEW terminal in VS Code (not just integrated terminal)
+pyautogui.hotkey('ctrl', 'shift', '`')  # opens a brand new terminal
 time.sleep(3)
 
 # Type compile + run command in VS Code terminal
