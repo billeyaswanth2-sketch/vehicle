@@ -2,16 +2,18 @@
 Vehicle Power Distribution - Test Runner
 Author  : Yaswanth
 Purpose :
-    I.   Open Folder in Explorer
-    II.  Open Test Cases in VS Code (separate window)
-    III. Run Test Cases in VS Code (new terminal)
+    I.   Compile C++ Test Cases
+    II.  Run Test Cases -> Save to result.txt
+    III. Open Folder in Explorer
+    IV.  Open VS Code
+    V.   Show Results in VS Code New Terminal
 """
 
 import subprocess
 import time
-import pyautogui
 import os
 import sys
+import pyautogui
 
 # ---------------------------------------------------------------------------
 # Disable pyautogui failsafe
@@ -26,6 +28,8 @@ pyautogui.FAILSAFE = False
 FOLDER = r"C:\vpds_testcases"
 VSCODE = r"C:\Users\B Yaswanth kumar\Downloads\Microsoft VS Code\Code.exe"
 CPP    = r"C:\vpds_testcases\testcases.cpp"
+EXE    = r"C:\vpds_testcases\testcases.exe"
+RESULT = r"C:\vpds_testcases\result.txt"
 
 # ---------------------------------------------------------------------------
 # Path Checks
@@ -52,50 +56,90 @@ print("[OK] Folder found")
 print("[OK] CPP file found")
 
 # ---------------------------------------------------------------------------
-# I. Open Folder in Explorer (separate window)
+# I. Compile C++ Test Cases
 # ---------------------------------------------------------------------------
 
-print("\n[STEP 1] Opening folder in Explorer...")
+print("\n[STEP 1] Compiling testcases.cpp...")
+compile = subprocess.run(
+    ["g++", CPP, "-o", EXE],
+    capture_output=True,
+    text=True
+)
+
+if compile.returncode != 0:
+    print("[ERROR] Compilation FAILED!")
+    print(compile.stderr)
+    sys.exit(1)
+
+print("[OK] Compilation SUCCESS!")
+
+# ---------------------------------------------------------------------------
+# II. Run Test Cases -> Save to result.txt
+# ---------------------------------------------------------------------------
+
+print("\n[STEP 2] Running test cases...")
+with open(RESULT, "w") as f:
+    run = subprocess.run(
+        [EXE],
+        stdout=f,
+        stderr=f,
+        text=True
+    )
+
+print("[OK] Test cases finished!")
+print("[OK] Results saved to result.txt!")
+
+# Print results to Jenkins Console
+print("\n" + "=" * 55)
+with open(RESULT, "r") as f:
+    content = f.read()
+    print(content)
+print("=" * 55)
+
+# ---------------------------------------------------------------------------
+# III. Open Folder in Explorer
+# ---------------------------------------------------------------------------
+
+print("\n[STEP 3] Opening folder in Explorer...")
 subprocess.Popen(["explorer", FOLDER])
 time.sleep(3)
+print("[OK] Folder opened!")
 
 # ---------------------------------------------------------------------------
-# II. Open VS Code in foreground separate window
+# IV. Open VS Code with Folder
 # ---------------------------------------------------------------------------
 
-print("[STEP 2] Opening VS Code with folder and CPP file...")
-subprocess.Popen([VSCODE, FOLDER, CPP])
-time.sleep(20)  # Wait for VS Code to fully load
+print("\n[STEP 4] Opening VS Code...")
+subprocess.Popen([VSCODE, FOLDER])
+time.sleep(20)
+print("[OK] VS Code opened!")
 
-# Bring VS Code to foreground and maximize
-pyautogui.hotkey('super', 'd')        # show desktop first
-time.sleep(1)
-pyautogui.hotkey('alt', 'tab')        # switch to VS Code
-time.sleep(1)
-pyautogui.hotkey('super', 'up')       # maximize window
+# ---------------------------------------------------------------------------
+# V. Open New Terminal in VS Code and Show Results
+# ---------------------------------------------------------------------------
+
+print("\n[STEP 5] Opening new terminal in VS Code...")
+
+# Focus VS Code window
+pyautogui.hotkey('alt', 'tab')
 time.sleep(2)
-print("[OK] VS Code opened and maximized!")
 
-# ---------------------------------------------------------------------------
-# III. Run Test Cases in VS Code (new terminal)
-# ---------------------------------------------------------------------------
+# Maximize VS Code window
+pyautogui.hotkey('super', 'up')
+time.sleep(1)
 
-print("[STEP 3] Opening new terminal in VS Code...")
-
-# Open a NEW terminal in VS Code
+# Open NEW terminal
 pyautogui.hotkey('ctrl', 'shift', '`')
 time.sleep(3)
 
-# Type compile + run command
-print("[INFO] Typing compile and run command...")
-cmd = r'cd C:\vpds_testcases; g++ testcases.cpp -o testcases.exe; .\testcases.exe'
+# Type command to show results in terminal
+print("[INFO] Showing results in VS Code terminal...")
+cmd = r'type C:\vpds_testcases\result.txt'
 pyautogui.write(cmd, interval=0.05)
 time.sleep(1)
 pyautogui.press('enter')
-
-print("\n[INFO] Test cases running in VS Code terminal...")
-time.sleep(15)
+time.sleep(3)
 
 print("\n" + "=" * 55)
-print("Done! Check VS Code terminal for test results!")
+print("Done! Check VS Code terminal for results!")
 print("=" * 55)
