@@ -1,0 +1,43 @@
+=======================================================
+Module : Vehicle Power Distribution
+Desc   : Test cases written in C++ (converted from CAPL)
+Eng    : Yaswanth
+=======================================================
+
+--- Group: simulation of signals / test mode communication ---
+
+[TC] brake_test
+  [PASS] test step1: brake is working fine
+
+[  OK  ] VpdTest.BrakeTest
+
+[TC] gear_test
+  [PASS] test step1: gear is in Park / Neutral
+  [PASS] test step2: gear 1 is activated
+  [PASS] test step3: gear 2 is activated
+  [PASS] test step4: gear 3 is activated
+  [PASS] test step5: gear 4 is activated
+  [PASS] test step6: gear 5 is activated
+
+[  OK  ] VpdTest.GearTest
+
+[TC] ignition_test
+  [PASS] test step1: key is in lock mode
+  [PASS] test step2: key is in accessory mode
+  [PASS] test step3: key is in ON mode
+  [PASS] test step4: key is in start mode
+
+[  OK  ] VpdTest.IgnitionKeyTest
+
+=======================================================
+Module : Vehicle Power Distribution
+Eng    : Yaswanth
+Total  : 11  |  Pass: 11  |  Fail: 0
+=======================================================
+
+--- Test Runner Summary ---
+[  OK  ] VpdTest.BrakeTest
+[  OK  ] VpdTest.GearTest
+[  OK  ] VpdTest.IgnitionKeyTest
+
+Tests run: 3  |  Passed: 3  |  Failed: 0
