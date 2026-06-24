@@ -19,7 +19,7 @@ import sys
 
 FOLDER = r"C:\vpds_testcases"
 VSCODE = r"C:\Users\B Yaswanth kumar\Downloads\Microsoft VS Code\Code.exe"
-CPP    = r"C:\vpds_testcases\vpds.cpp"
+CPP    = r"C:\vpds_testcases\testcases.cpp"
 
 # ---------------------------------------------------------------------------
 # Path Checks
@@ -78,7 +78,7 @@ time.sleep(3)
 
 # Type compile + run command
 print("[INFO] Typing compile and run command...")
-cmd = r'cd C:\vpds_testcases; g++ vpds.cpp -o vpds_output.exe; .\vpds_output.exe'
+cmd = r'cd C:\vpds_testcases; g++ testcases.cpp -o testcases.exe; .\testcases.exe'
 pyautogui.write(cmd, interval=0.05)
 time.sleep(1)
 pyautogui.press('enter')
