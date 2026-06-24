@@ -3,7 +3,7 @@ Vehicle Power Distribution - Test Runner
 Author  : Yaswanth
 Purpose :
     I.   Open Folder in Explorer
-    II.  Open Test Cases in VS Code
+    II.  Open Test Cases in VS Code (separate window)
     III. Run Test Cases in VS Code (new terminal)
 """
 
@@ -52,31 +52,35 @@ print("[OK] Folder found")
 print("[OK] CPP file found")
 
 # ---------------------------------------------------------------------------
-# I. Open Folder in Explorer
+# I. Open Folder in Explorer (separate window)
 # ---------------------------------------------------------------------------
 
 print("\n[STEP 1] Opening folder in Explorer...")
 subprocess.Popen(["explorer", FOLDER])
-time.sleep(2)
+time.sleep(3)
 
 # ---------------------------------------------------------------------------
-# II. Open Test Cases in VS Code (only once)
+# II. Open VS Code in foreground separate window
 # ---------------------------------------------------------------------------
 
 print("[STEP 2] Opening VS Code with folder and CPP file...")
 subprocess.Popen([VSCODE, FOLDER, CPP])
 time.sleep(20)  # Wait for VS Code to fully load
-print("[OK] VS Code opened!")
+
+# Bring VS Code to foreground and maximize
+pyautogui.hotkey('super', 'd')        # show desktop first
+time.sleep(1)
+pyautogui.hotkey('alt', 'tab')        # switch to VS Code
+time.sleep(1)
+pyautogui.hotkey('super', 'up')       # maximize window
+time.sleep(2)
+print("[OK] VS Code opened and maximized!")
 
 # ---------------------------------------------------------------------------
 # III. Run Test Cases in VS Code (new terminal)
 # ---------------------------------------------------------------------------
 
 print("[STEP 3] Opening new terminal in VS Code...")
-
-# Focus VS Code window safely
-pyautogui.hotkey('alt', 'tab')
-time.sleep(2)
 
 # Open a NEW terminal in VS Code
 pyautogui.hotkey('ctrl', 'shift', '`')
@@ -90,7 +94,7 @@ time.sleep(1)
 pyautogui.press('enter')
 
 print("\n[INFO] Test cases running in VS Code terminal...")
-time.sleep(10)
+time.sleep(15)
 
 print("\n" + "=" * 55)
 print("Done! Check VS Code terminal for test results!")
