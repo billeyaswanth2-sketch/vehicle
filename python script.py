@@ -8,7 +8,6 @@ Purpose :
     IV.  Open VS Code
     V.   Show Results in VS Code New Terminal
 """
-
 import subprocess
 import time
 import os
